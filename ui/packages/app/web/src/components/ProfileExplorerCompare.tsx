@@ -14,6 +14,7 @@ interface ProfileExplorerCompareProps {
   selectQueryB: (query: QuerySelection) => void;
   selectProfileA: (source: ProfileSelection) => void;
   selectProfileB: (source: ProfileSelection) => void;
+  expandProfile: (query: QuerySelection) => void;
 }
 
 const ProfileExplorerCompare = ({
@@ -26,6 +27,7 @@ const ProfileExplorerCompare = ({
   selectQueryB,
   selectProfileA,
   selectProfileB,
+  expandProfile,
 }: ProfileExplorerCompareProps): JSX.Element => {
   return (
     <>
@@ -37,6 +39,7 @@ const ProfileExplorerCompare = ({
             profileSelection={profileA}
             selectProfile={selectProfileA}
             selectQuery={selectQueryA}
+            expandProfile={expandProfile}
             enforcedProfileName={''}
             comparing={true}
             onCompareProfile={() => {}}
@@ -49,6 +52,7 @@ const ProfileExplorerCompare = ({
             profileSelection={profileB}
             selectProfile={selectProfileB}
             selectQuery={selectQueryB}
+            expandProfile={expandProfile}
             enforcedProfileName={Query.parse(queryA.expression).profileName()}
             comparing={true}
             onCompareProfile={() => {}}

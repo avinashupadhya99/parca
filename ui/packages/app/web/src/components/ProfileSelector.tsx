@@ -10,6 +10,7 @@ import CompareButton from './CompareButton';
 import Button from './ui/Button';
 import ButtonGroup from './ui/ButtonGroup';
 import Card from './ui/Card';
+import ExpandIcon from './ui/ExpandIcon';
 import Select, {SelectElement} from './ui/Select';
 
 interface TimeSelection {
@@ -30,6 +31,7 @@ interface ProfileSelectorProps {
   querySelection: QuerySelection;
   selectProfile: (source: ProfileSelection) => void;
   selectQuery: (query: QuerySelection) => void;
+  expandProfile: (query: QuerySelection) => void;
   enforcedProfileName: string;
   profileSelection: ProfileSelection | null;
   comparing: boolean;
@@ -152,6 +154,7 @@ const ProfileSelector = ({
   querySelection,
   selectProfile,
   selectQuery,
+  expandProfile,
   enforcedProfileName,
   profileSelection,
   comparing,
@@ -351,6 +354,24 @@ const ProfileSelector = ({
       <Card>
         <Card.Header>
           <div className="flex space-x-4">
+            {comparing && (
+              <button
+                type="button"
+                onClick={() => {
+                  const ts = timeSelectionByKey(currentTimeSelection());
+                  const [from, to] = timeSelections[ts].time();
+                  expandProfile({
+                    expression: query.toString(),
+                    from: from,
+                    to: to,
+                    merge: mergeDisabled,
+                    timeSelection: timeSelections[ts].key,
+                  });
+                }}
+              >
+                <ExpandIcon />
+              </button>
+            )}
             <Select
               items={profileLabels}
               selectedKey={selectedProfileName}

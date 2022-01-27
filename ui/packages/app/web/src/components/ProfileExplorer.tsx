@@ -208,6 +208,21 @@ const ProfileExplorer = ({router, queryClient}: ProfileExplorerProps): JSX.Eleme
     });
   };
 
+  const expandProfile = async (q: QuerySelection): Promise<boolean> => {
+    const newQueryParameters = {
+      expression_a: q.expression,
+      from_a: q.from.toString(),
+      to_a: q.to.toString(),
+      merge_a: q.merge,
+      time_selection_a: q.timeSelection,
+    };
+
+    return await router.push({
+      pathname: '/',
+      query: newQueryParameters,
+    });
+  };
+
   return (
     <ProfileExplorerCompare
       queryClient={queryClient}
@@ -219,6 +234,7 @@ const ProfileExplorer = ({router, queryClient}: ProfileExplorerProps): JSX.Eleme
       selectQueryB={selectQueryB}
       selectProfileA={selectProfileA}
       selectProfileB={selectProfileB}
+      expandProfile={expandProfile}
     />
   );
 };
